@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday Priti jiii! 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #2c1654, #160c28 60%, #0d0718);
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Subtle floating stars background */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 80px 120px, #ffd700, rgba(0,0,0,0)),
+      radial-gradient(1.5px 1.5px at 160px 60px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 240px 180px, #ff85c0, rgba(0,0,0,0));
+    background-size: 280px 280px;
+    opacity: 0.45;
+  }
+
+  /* STAGE 1: BALLOON POP GAME */
+  #game-stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 48px;
+    z-index: 10;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .task-badge {
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    color: #ffd700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .task-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    text-align: center;
+    padding: 0 20px;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #fff, #ffd700, #ff9ebb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .task-sub {
+    font-size: 0.95rem;
+    color: #d6c8eb;
+    margin-bottom: 14px;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .counter-pill {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .balloon {
+    position: absolute;
+    bottom: -140px;
+    width: 74px;
+    height: 90px;
+    border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: inset -8px -10px 18px rgba(0,0,0,0.25), 0 10px 25px rgba(0,0,0,0.3);
+    animation: floatUp linear forwards;
+    transition: transform 0.1s ease;
+  }
+
+  .balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    width: 2px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .balloon:active {
+    transform: scale(1.25);
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-55vh) rotate(4deg); }
+    100% { transform: translateY(-120vh) rotate(-3deg); }
+  }
+
+  /* STAGE 2: HAPPY BIRTHDAY + GIFT ICON */
+  #celebration-stage {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    z-index: 20;
+    max-width: 600px;
+    animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .hbd-tag {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffd700;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .hbd-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 1.15;
+    background: linear-gradient(135deg, #fff5c0 0%, #ffd700 45%, #ff7eb3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 8px 30px rgba(255, 215, 0, 0.25);
+    margin-bottom: 14px;
+  }
+
+  .hbd-sub {
+    color: #e4d8f5;
+    font-size: 1.05rem;
+    margin-bottom: 34px;
+  }
+
+  .gift-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .gift-btn {
+    width: 110px;
+    height: 110px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #ff758c, #ff7eb3, #ffd700);
+    border: none;
+    font-size: 3.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(255, 126, 179, 0.45);
+    animation: bounceGift 1.6s infinite ease-in-out;
+    transition: transform 0.2s ease;
+  }
+
+  .gift-btn:hover {
+    transform: scale(1.08);
+  }
+
+  @keyframes bounceGift {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-12px) rotate(-5deg); }
+    50% { transform: translateY(0) rotate(5deg); }
+    75% { transform: translateY(-6px) rotate(-3deg); }
+  }
+
+  .gift-label {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffd700;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+  }
+
+  /* STAGE 3: GREETING CARD MODAL */
+  #card-stage {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 5, 20, 0.82);
+    backdrop-filter: blur(10px);
+    z-index: 30;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .greeting-card {
+    background: linear-gradient(160deg, #fffdf9 0%, #fff4f8 55%, #fdf6e7 100%);
+    color: #2b1b3d;
+    width: 100%;
+    max-width: 430px;
+    border-radius: 26px;
+    padding: 26px 22px 28px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 3px #ffd700;
+    position: relative;
+    animation: cardFlipIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    margin: auto;
+  }
+
+  @keyframes cardFlipIn {
+    0% { opacity: 0; transform: translateY(35px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .card-sparkles {
+    font-size: 1.3rem;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+  }
+
+  .photo-frame {
+    width: 175px;
+    height: 175px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    padding: 5px;
+    background: linear-gradient(135deg, #ffd700, #ff6b9d, #a855f7);
+    box-shadow: 0 12px 28px rgba(168, 85, 247, 0.28);
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    display: block;
+    background: #f3e8ff;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.85rem;
+    color: #4a196b;
+    margin-bottom: 14px;
+  }
+
+  .poem-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-left: 4px solid #e0a800;
+    border-right: 4px solid #e0a800;
+    border-radius: 16px;
+    padding: 16px 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(74, 25, 107, 0.06);
+  }
+
+  .poem-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.03rem;
+    line-height: 1.65;
+    color: #361d4e;
+  }
+
+  .card-footer {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #8b4c9e;
+  }
+
+  #confetti-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 40;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- STAGE 1: BALLOON POP TASK -->
+<div id="game-stage">
+  <div class="task-badge">✨ BIRTHDAY MISSION ✨</div>
+  <h1 class="task-title">Pop 5 Balloons to Unlock Your Surprise!</h1>
+  <p class="task-sub">Tap on the floating balloons, Priti jiii 🎈</p>
+  <div class="counter-pill">Popped: <span id="pop-count">0</span> / 5</div>
+</div>
+
+<!-- STAGE 2: HAPPY BIRTHDAY + GIFT ICON -->
+<div id="celebration-stage">
+  <div class="hbd-tag">✨ Shine On Always ✨</div>
+  <h1 class="hbd-heading">Happy Birthday<br>Priti jiii! 🎂</h1>
+  <p class="hbd-sub">You unlocked your birthday surprise! Tap the gift below 👇</p>
+  
+  <div class="gift-wrapper" onclick="openGreetingCard()">
+    <button class="gift-btn" aria-label="Open Gift">🎁</button>
+    <div class="gift-label">Tap to Open Your Card ✨</div>
+  </div>
+</div>
+
+<!-- STAGE 3: GREETING CARD WITH PHOTO & POEM -->
+<div id="card-stage">
+  <div class="greeting-card">
+    <div class="card-sparkles">✨ 🎂 ✨</div>
+    
+    <!-- IMPORTANT: Upload Priti ji's photo in the same GitHub folder and name it priti.jpg -->
+    <div class="photo-frame">
+      <img src="priti.jpg" alt="Priti jiii" onerror="this.src='https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=400&q=80'">
+    </div>
+
+    <h2 class="card-title">Happy Birthday, Priti jiii! 🌸</h2>
+
+    <div class="poem-box">
+      <p class="poem-text">
+        “If beauty were poetry, you'd be every line,<br>
+        A masterpiece even the stars would call divine.<br>
+        For flowers may bloom and seasons may flee,<br>
+        But there's a rare kind of grace that lives in thee.”
+      </p>
+    </div>
+
+    <div class="card-footer">Wishing you endless smiles, laughter & magic today and always! 🥂💛</div>
+  </div>
+</div>
+
+<script>
+  const gameStage = document.getElementById('game-stage');
+  const celebrationStage = document.getElementById('celebration-stage');
+  const cardStage = document.getElementById('card-stage');
+  const popCountEl = document.getElementById('pop-count');
+
+  let popped = 0;
+  const targetPops = 5;
+  let gameCompleted = false;
+
+  const balloonColors = [
+    'radial-gradient(circle at 30% 30%, #ff9a9e, #ff4b7d)',
+    'radial-gradient(circle at 30% 30%, #ffe259, #ffa751)',
+    'radial-gradient(circle at 30% 30%, #a18cd1, #7b4397)',
+    'radial-gradient(circle at 30% 30%, #84fab0, #28a745)',
+    'radial-gradient(circle at 30% 30%, #89f7fe, #4facfe)'
+  ];
+
+  function spawnBalloon() {
+    if (gameCompleted) return;
+
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon';
+    balloon.innerText = '✨';
+    balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+    
+    const leftPos = 8 + Math.random() * 76;
+    balloon.style.left = leftPos + 'vw';
+    
+    const duration = 4.2 + Math.random() * 2.2;
+    balloon.style.animationDuration = duration + 's';
+
+    const popHandler = (e) => {
+      e.preventDefault();
+      if (balloon.dataset.popped) return;
+      balloon.dataset.popped = 'true';
+
+      popped++;
+      popCountEl.innerText = Math.min(popped, targetPops);
+
+      balloon.style.transform = 'scale(1.5)';
+      balloon.style.opacity = '0';
+      setTimeout(() => balloon.remove(), 120);
+
+      if (popped >= targetPops && !gameCompleted) {
+        completeTask();
+      }
+    };
+
+    balloon.addEventListener('click', popHandler);
+    balloon.addEventListener('touchstart', popHandler, { passive: false });
+
+    gameStage.appendChild(balloon);
+
+    setTimeout(() => {
+      if (balloon.parentNode) balloon.remove();
+    }, duration * 1000);
+  }
+
+  // Spawn balloons continuously until 5 are popped
+  const balloonInterval = setInterval(() => {
+    if (gameCompleted) {
+      clearInterval(balloonInterval);
+    } else {
+      spawnBalloon();
+    }
+  }, 650);
+
+  // Initial batch of balloons immediately
+  spawnBalloon();
+  setTimeout(spawnBalloon, 250);
+  setTimeout(spawnBalloon, 500);
+
+  function completeTask() {
+    gameCompleted = true;
+    clearInterval(balloonInterval);
+    launchConfetti();
+
+    gameStage.style.opacity = '0';
+    setTimeout(() => {
+      gameStage.style.display = 'none';
+      celebrationStage.style.display = 'flex';
+    }, 500);
+  }
+
+  function openGreetingCard() {
+    launchConfetti();
+    cardStage.style.display = 'flex';
+  }
+
+  /* CONFETTI ANIMATION */
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  let confettiPieces = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function launchConfetti() {
+    const colors = ['#ffd700', '#ff6b9d', '#a855f7', '#38bdf8', '#4ade80', '#ffffff'];
+    for (let i = 0; i < 110; i++) {
+      confettiPieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: 7 + Math.random() * 6,
+        h: 4 + Math.random() * 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speedY: 2.5 + Math.random() * 3.5,
+        speedX: -1.5 + Math.random() * 3,
+        angle: Math.random() * 360,
+        spin: -4 + Math.random() * 8
+      });
+    }
+  }
+
+  function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confettiPieces.forEach((p, idx) => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.angle += p.spin;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.angle * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+
+      if (p.y > canvas.height + 20) {
+        confettiPieces.splice(idx, 1);
+      }
+    });
+    requestAnimationFrame(animateConfetti);
+  }
+  animateConfetti();
+</script>
+
+</body>
+</html>
